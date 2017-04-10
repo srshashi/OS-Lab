@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+using namespace std;
+
+int main()
+{
+    int a,b;
+    printf("Enter no of frame available:");
+    scanf("%d",&a);
+    int frame[a],page[30];
+    printf("Enter no of pages in queue;");
+    scanf("%d",&b);
+    for(int i=0;i<b; i++)
+        scanf("%d",&page[i]);
+
+    for(int i=0;i<a;i++)
+        frame[i] = page[i];
+    int k = 0;
+    for(int i=a;i<b;i++){
+        bool f = true;
+        for(int j=0;j<a;j++)
+            if(frame[j] == page[i])
+                f = false;
+        if(f){
+            frame[k] = page[i];
+            k = (k+1)%a;
+        }
+        for(int j=0; j<a; j++)
+            printf("%d ",frame[j]);
+        printf("\n");
+    }
+    return 0;
+}
