@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n,q,temp,i,j,t,tq,m;
+    cout<<"Enter no. of process : ";
+    cin>>n;
+    m=n;
+    int b[n],a[n],tr[n],c[n],bs=0;
+    memset(c,0,sizeof(c));
+    cout<<"Burst Time : ";
+    for(i=0;i<n;i++){
+        cin>>b[i];
+        bs+=b[i];
+        }
+    cout<<"Arrival Time : ";
+    for(i=0;i<n;i++)
+        cin>>a[i];
+    cout<<"Quantum : ";
+    cin>>q;
+    for(i=0;i<n;i++){
+        for(j=i+1;j<n;j++)
+        if(a[j]<a[i]){
+            temp=a[j];
+            a[j]=a[i];
+            a[i]=temp;
+            temp=b[j];
+            b[j]=b[i];
+            b[i]=temp;
+        }
+    }i=0;tq=0;
+    for(t=1;t<=bs;t++){
+        if(a[i]<=t&&c[i]==0){
+            b[i]-=1;
+            tq++;
+            if(b[i]==0){
+                tr[i]=t;
+                c[i]=1;
+                tq=0;
+                i++;
+                cout<<t<<" ";
+            }
+            if(tq==q){
+                tq=0;
+                i++;
+                cout<<t<<" ";
+            }
+        }
+        else{
+            i++;t--;
+        }
+        if(i==n)
+            i=0;
+    }
+    cout<<endl;
+    for(i=0;i<n;i++)
+        cout<<tr[i]<<" ";
+return 0;
+}
