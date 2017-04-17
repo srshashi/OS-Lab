@@ -1,18 +1,5 @@
 #include<stdio.h>
 
-void sortBurst(int a[],int b[],int n){
-    int temp = 0,temp1 = 0;
-    for(int i=1; i<n; i++){
-        for(int j=0; j<i; j++){
-            if(a[j] > a[i]){
-                temp = a[j],temp1 = b[j];
-                a[j] = a[i], b[j] = b[i];
-                a[i] = temp, b[i] = temp1;
-            }
-        }
-    }
-}
-
 int main()
 {
     int bt[20],bt1[20],art[20],p[20],wt[20],tat[20],i,n,total=0,total1 = 0;
@@ -30,19 +17,18 @@ int main()
         total += bt[i];
         wt[i] = 0;
     }
-    int pget[20],pn[20],ans[total];
+    int ans[total];
     for(int time=0; time<total; time++){
         int c = 0;
+        int minm = 100000;
         for(int j=0; j<n; j++){
-            if(art[j] <= time && bt[j] != 0){
-                pget[c] = bt[j];
-                pn[c] = p[j];
-                c++;
+            if(art[j] <= time && bt[j] != 0 && minm > bt[j]){
+                c = j;
+                minm = bt[j];
             }
         }
-        sortBurst(pget,pn,c);
-        ans[time] = pn[0];
-        bt[pn[0]-1]--;
+        ans[time] = c + 1;
+        bt[c]--;
     }
     int k=0,c=1,schedtime[20],procnum[20];
     for(int i=0; i<total; i++){
